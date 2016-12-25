@@ -10,7 +10,7 @@ import reqInfo from './mids/reqInfo';
 import htmlMinify from './mids/html-minify';
 import routes from './routes';
 import conf from './conf';
-import open from 'open';
+// import open from 'open';
 
 const app=new Koa();
 const router=KoaRouter();
