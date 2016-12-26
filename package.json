@@ -1,10 +1,11 @@
 {
   "name": "koa2",
   "version": "1.0.0",
-  "description": "famanoder",
+  "description": "koa2 base",
   "main": "start.js",
   "scripts": {
-    "start": "node ./www"
+    "start": "node www",
+    "watch": "supervisor www"
   },
   "keywords": [
     "koa2"
