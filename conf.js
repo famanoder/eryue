@@ -1,4 +1,4 @@
 export default {
-	port:'3000',
+	port:'9000',
 	staticDir:'./static'
 }
