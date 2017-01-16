@@ -1,4 +1,5 @@
 import Koa from 'koa';
+import mongo from 'koa-mongo';
 import favicon from 'koa-favicon';
 import KoaRouter from 'koa-router';
 import convert from 'koa-convert'
@@ -30,7 +31,14 @@ app.use(htmlMinify({collapseWhitespace:true}));
 app.use(convert(favicon(`${conf.staticDir}/favicon.ico`)));
 //static files
 app.use(convert(staticCache(`${conf.staticDir}`,{gzip:true})));
-
+//link mongo to cx
+app.use(mongo({
+	user:'famanoder',
+	pass:'123321',
+	host:'127.0.0.1',
+	port:'1314',
+	db:'myBlog'
+}));
 //routes
 routes(router);
 app.use(router.routes());
