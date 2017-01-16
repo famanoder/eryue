@@ -14,7 +14,8 @@ export default function(router){
 	router.get('/',async (cx,next)=>{
 		let doc=await cx.mongo.db('myBlog').collection('articals').find(_id:ObjectID('aecae8a3a3ceaf0a1')).toArray();
 		cx.type='text/html';
-		cx.response.body=doc[0].content;
+		console.log(doc[0].content);
+		cx.response.body=`Hello Koa2 !`;
 	});
 	router.get('/:name',async (ctx,next)=>{
 		ctx.type='text/html';
