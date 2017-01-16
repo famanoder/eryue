@@ -1,3 +1,4 @@
+import {ObjectID} from 'BSON';
 export default function(router){
 	let tpl=`
 		<form method="POST" action="/action/fsfcf" enctype="multipart/form-data">
@@ -11,8 +12,9 @@ export default function(router){
 	`;
 
 	router.get('/',async (cx,next)=>{
+		let doc=await cx.mongo.db('myBlog').collection('articals').find(_id:ObjectID('aecae8a3a3ceaf0a1')).toArray();
 		cx.type='text/html';
-		cx.response.body=`<h1>Index Page,Hello World !</h1><h1>Say,Hi famanoder !</h1>`;
+		cx.response.body=doc[0].content;
 	});
 	router.get('/:name',async (ctx,next)=>{
 		ctx.type='text/html';
