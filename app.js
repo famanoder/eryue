@@ -42,13 +42,7 @@ app.use(convert(favicon(`${conf.staticDir}/favicon.ico`)));
 //static files
 app.use(convert(staticCache(`${conf.staticDir}`,{gzip:true})));
 //link mongo to cx
-app.use(mongo({
-	user:'famanoder',
-	pass:'123321',
-	host:'127.0.0.1',
-	port:'1314',
-	db:'myBlog'
-}));
+app.use(mongo(conf.mongoOption));
 //routes
 routes(router);
 app.use(router.routes());
