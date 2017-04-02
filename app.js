@@ -41,8 +41,11 @@ app.use(htmlMinify({collapseWhitespace:true}));
 app.use(convert(favicon(`${conf.staticDir}/favicon.ico`)));
 //static files
 app.use(convert(staticCache(`${conf.staticDir}`,{gzip:true})));
-//link mongo to cx
-app.use(mongo(conf.mongoOption));
+
+/* link mongo to cx
+*  app.use(mongo(conf.mongoOption));
+*/
+
 //routes
 routes(router);
 app.use(router.routes());
