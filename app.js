@@ -1,4 +1,5 @@
 import Koa from 'koa';
+import http from 'https';
 import mongo from 'koa-mongo';
 import favicon from 'koa-favicon';
 import KoaRouter from 'koa-router';
@@ -14,6 +15,15 @@ import conf from './conf';
 // import open from 'open';
 
 const app=new Koa();
+/*
+* https
+* https.createServer({
+*	key:fs.readFileSync('key.pem', 'utf8'),
+* 	cert:fs.readFileSync('crt.pem', 'utf8')
+* },app.callback()).listen(conf.port||443);
+*/
+
+
 const router=KoaRouter();
 
 //catch error 500
