@@ -7,7 +7,7 @@ import convert from 'koa-convert'
 import catchError from 'koa-onerror'
 import bodyParser from 'koa-bodyparser';
 import compress from 'koa-compress';
-import staticCache from 'koa-static-cache';
+import staticCache from 'koa-static';
 import reqInfo from './mids/reqInfo';
 import htmlMinify from './mids/html-minify';
 import routes from './routes';
@@ -16,7 +16,8 @@ import conf from './conf';
 
 const app=new Koa();
 /*
-* https
+* https support
+*
 * https.createServer({
 *	key:fs.readFileSync('key.pem', 'utf8'),
 * 	cert:fs.readFileSync('crt.pem', 'utf8')
@@ -36,11 +37,11 @@ app.use(bodyParser());
 //compresion
 app.use(compress());
 //html-minify
-app.use(htmlMinify({collapseWhitespace:true}));
+// app.use(htmlMinify({collapseWhitespace:true}));
 //favicon.ico
 app.use(convert(favicon(`${conf.staticDir}/favicon.ico`)));
 //static files
-app.use(convert(staticCache(`${conf.staticDir}`,{gzip:true})));
+app.use(convert(staticCache(`${conf.staticDir}`,{index:false})));
 
 /* link mongo to cx
 *  app.use(mongo(conf.mongoOption));
