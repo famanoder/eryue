@@ -6,6 +6,7 @@ async function Logout(cx,next){
 	cx.response.body='logout';
 }
 async function getUserInfo(cx,next){
+	// let userInfo = await cx.linkDbCollection('users').find({}).toArray();
 	cx.response.body=cx.params.userId;
 }
 
