@@ -24,7 +24,7 @@
 
   > a. curl http://localhost:9000/api/user/login
   
-  > b. curl -d '' http://localhost:9000/api/user/1234567890.userId
+   > b. curl -d '' http://localhost:9000/api/user/1234567890.userId
   
   > c. curl -d '' http://localhost:9000/api/user/logout
   
