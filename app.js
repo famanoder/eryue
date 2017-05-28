@@ -57,8 +57,7 @@ app.use(convert(staticCache(`${conf.staticDir}`,{index:false})));
 // });
 
 //routes
-routes(router);
-app.use(router.routes());
+app.use(routes(router));
 
 server.listen(conf.port,(err)=>{
 	if (err) {

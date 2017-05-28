@@ -4,8 +4,8 @@
   "description": "koa2 base",
   "main": "start.js",
   "scripts": {
-    "start": "node www",
-    "watch": "supervisor www"
+    "start": "node ./bin/www",
+    "watch": "supervisor ./bin/www"
   },
   "keywords": [
     "koa2"
