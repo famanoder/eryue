@@ -5,7 +5,12 @@ export default {
 		user:'famanoder',
 		pass:'123321',
 		host:'127.0.0.1',
-		port:'1314',
-		db:'myBlog'
+		port:'27017',
+		db:'test'
+	},
+	SSL:{
+		support:false,
+		key:'',
+		cert:''
 	}
 }

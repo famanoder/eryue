@@ -15,15 +15,13 @@ import conf from './conf';
 // import open from 'open';
 
 const app=new Koa();
-/*
-* https support
-*
-* https.createServer({
-*	key:fs.readFileSync('key.pem', 'utf8'),
-* 	cert:fs.readFileSync('crt.pem', 'utf8')
-* },app.callback()).listen(conf.port||443);
-*/
 
+const ssl = conf.SSL;
+const key = ssl.support?fs.readFileSync(ssl.key):'';
+const cert = ssl.support?fs.readFileSync(ssl.cert):'';
+const server =  ssl.support
+			  ? https.createServer({key,cert},app.callback())
+			  : app;
 
 const router=KoaRouter();
 
@@ -43,15 +41,31 @@ app.use(convert(favicon(`${conf.staticDir}/favicon.ico`)));
 //static files
 app.use(convert(staticCache(`${conf.staticDir}`,{index:false})));
 
-/* link mongo to cx
-*  app.use(mongo(conf.mongoOption));
+/* 
+* link mongo to cx 
 */
+// app.use(mongo(conf.mongoOption));
+
+/*
+*  link connet db method to cx and return a collection
+*/
+// app.use(async (cx,next)=>{
+// 	cx.linkDbCollection = (col)=>{
+// 		return cx.mongo.db(conf.mongoOption.db).collection(col);
+// 	}
+// 	await next();
+// });
 
 //routes
 routes(router);
 app.use(router.routes());
 
-app.listen(conf.port);
+server.listen(conf.port,(err)=>{
+	if (err) {
+		console.log(err);
+	}else{
+		console.log(`a koa app is started at ${conf.port} port...`);
+	};
+});
 
-console.log(`a koa app is started at ${conf.port} port...`);
 // open(`http://localhost:${conf.port}`);
