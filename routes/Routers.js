@@ -1,7 +1,12 @@
+import {
+	getArgType
+} from '../modules';
+
 import pageRoutes from './pageRoutes';
 import APIs from './API';
 
 function Router(router,routesMap){
+	console.log(`[routes]`);
 	console.log(routesMap)
 	const routes = Object.keys(routesMap);
 	routes.forEach(route=>{
@@ -9,7 +14,7 @@ function Router(router,routesMap){
 		if (route!='__setDefaultType__') {
 			router[routesMap[route].type||__setDefaultType__](
 				route,
-				getArgtype(routesMap[route])=='function'
+				getArgType(routesMap[route])=='function'
 				?routesMap[route]
 				:routesMap[route].handle||function(){}
 			);
@@ -23,6 +28,3 @@ export function apiRouter(router){
 	Router(router,APIs);
 }
 
-function getArgtype(arg){
-	return Object.prototype.toString.call(arg).toLowerCase().match(/\s(\w+)/)[1];
-}
