@@ -19,6 +19,7 @@
     "babel-preset-es2015-node6": "^0.4.0",
     "babel-preset-stage-3": "^6.17.0",
     "colors": "^1.1.2",
+    "formidable": "^1.1.1",
     "html-minifier": "^3.2.3",
     "jsonwebtoken": "^7.4.1",
     "koa": "^2.0.0",

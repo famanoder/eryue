@@ -1,6 +1,10 @@
 export default {
 	port:'9000',
 	staticDir:'./static',
+	upload:{
+		support:true,
+		uploadedDir:'./static/files'
+	},
 	mongoOption:{
 		user:'famanoder',
 		pass:'123321',

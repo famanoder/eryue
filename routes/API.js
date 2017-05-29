@@ -1,3 +1,4 @@
+import uploadFiles from '../mids/uploadFiles';
 
 async function Login(cx,next){
 	let token=cx.jwt.sign({name:'hufeng',age:24});
@@ -5,9 +6,6 @@ async function Login(cx,next){
 		success:true,
 		result:token
 	};
-}
-async function Logout(cx,next){
-	cx.response.body='logout';
 }
 async function getUserInfo(cx,next){
 	let payload = cx.jwt.verify();
@@ -20,8 +18,8 @@ const APIs = {
 		type:'get',
 		handle:Login
 	},
-	'/api/user/logout':Logout,
 	'/api/user/:userId':getUserInfo,
+	'/action':uploadFiles,
 	// just a default route type
 	__setDefaultType__:'post'
 }

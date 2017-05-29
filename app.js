@@ -3,8 +3,8 @@ import http from 'https';
 import mongo from 'koa-mongo';
 import favicon from 'koa-favicon';
 import KoaRouter from 'koa-router';
-import convert from 'koa-convert'
-import catchError from 'koa-onerror'
+import convert from 'koa-convert';
+import catchError from 'koa-onerror';
 import bodyParser from 'koa-bodyparser';
 import compress from 'koa-compress';
 import staticCache from 'koa-static';
