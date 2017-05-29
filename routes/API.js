@@ -1,13 +1,18 @@
 
 async function Login(cx,next){
-	cx.response.body='login';
+	let token=cx.jwt.sign({name:'hufeng',age:24});
+	cx.response.body={
+		success:true,
+		result:token
+	};
 }
 async function Logout(cx,next){
 	cx.response.body='logout';
 }
 async function getUserInfo(cx,next){
+	let payload = cx.jwt.verify();
 	// let userInfo = await cx.linkDbCollection('users').find({userId:'123abc'}).toArray()[0];
-	cx.response.body=cx.params.userId;
+	cx.response.body=payload;
 }
 
 const APIs = {

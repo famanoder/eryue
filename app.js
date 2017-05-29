@@ -8,6 +8,8 @@ import catchError from 'koa-onerror'
 import bodyParser from 'koa-bodyparser';
 import compress from 'koa-compress';
 import staticCache from 'koa-static';
+
+import JWT from './mids/JWT';
 import reqInfo from './mids/reqInfo';
 import htmlMinify from './mids/html-minify';
 import routes from './routes';
@@ -55,6 +57,10 @@ app.use(convert(staticCache(`${conf.staticDir}`,{index:false})));
 // 	}
 // 	await next();
 // });
+
+// use jwt to protect restful API
+// or you can use session and cookie
+app.use(JWT);
 
 //routes
 app.use(routes(router));

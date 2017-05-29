@@ -12,5 +12,12 @@ export default {
 		support:false,
 		key:'',
 		cert:''
+	},
+	JWT:{
+		support:true,
+		expire:'1h',
+		secret:"require('fs').readFileSync('private.key')"
 	}
 }
+
+
