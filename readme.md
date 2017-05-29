@@ -25,7 +25,7 @@
 
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a.&nbsp;&nbsp;curl http://localhost:9000/api/user/login
   
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b.&nbsp;&nbsp;curl -d '' http://localhost:9000/api/user/1234567890.userId
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b.&nbsp;&nbsp;curl -d auth=your_token http://localhost:9000/api/user/1234567890.userId
   
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c.&nbsp;&nbsp;curl -d '' http://localhost:9000/api/user/logout
   
