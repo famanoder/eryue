@@ -3,7 +3,7 @@ export default {
 	staticDir:'./static',
 	upload:{
 		support:true,
-		uploadedDir:'./static/files'
+		uploadedDir:'./static/uploadFiles'
 	},
 	mongoOption:{
 		user:'famanoder',
