@@ -6,10 +6,10 @@ export default {
 		uploadedDir:'./static/uploadFiles'
 	},
 	mongoOption:{
-		user:'famanoder',
-		pass:'123321',
-		host:'127.0.0.1',
-		port:'27017',
+		// user:'famanoder',
+		// pass:'123321',
+		// host:'127.0.0.1',
+		// port:'27017',
 		db:'test'
 	},
 	SSL:{

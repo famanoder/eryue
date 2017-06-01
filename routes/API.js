@@ -8,9 +8,10 @@ async function Login(cx,next){
 	};
 }
 async function getUserInfo(cx,next){
-	let payload = cx.jwt.verify();
-	// let userInfo = await cx.linkDbCollection('users').find({userId:'123abc'}).toArray()[0];
-	cx.response.body=payload;
+	// let payload = cx.jwt.verify();
+	// let userInfo = await cx.linkDbCollection('users').find({}).toArray();
+	
+	cx.response.body='userInfo';
 }
 
 const APIs = {

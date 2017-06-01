@@ -36,7 +36,7 @@ async function JWT(cx,next){
 			}
 		}
 	};
-	next();
+	await next();
 }
 
 export default JWT;

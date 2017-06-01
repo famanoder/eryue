@@ -9,7 +9,7 @@ export default function routes(router){
 	// 404
 	['get','post','put','del'].forEach((m)=>{
 		router[m]('*',async (cx,next)=>{
-			await next();
+			// await next();
 			cx.response.redirect('/404.html');
 		});
 	});
