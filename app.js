@@ -11,20 +11,26 @@ import staticCache from 'koa-static';
 
 import routes from './routes';
 import conf from './conf';
+
 const {
 	JWT,
 	reqInfo,
 	htmlMinify
 } = require('./mids');
+const {
+	SSL,
+	staticDir,
+	mongoOption,
+	port
+} = conf;
 
 // import open from 'open';
 
 const app=new Koa();
 
-const ssl = conf.SSL;
-const key = ssl.support?fs.readFileSync(ssl.key):'';
-const cert = ssl.support?fs.readFileSync(ssl.cert):'';
-const server =  ssl.support
+const key = SSL.support?fs.readFileSync(SSL.key):'';
+const cert = SSL.support?fs.readFileSync(SSL.cert):'';
+const server =  SSL.support
 			  ? https.createServer({key,cert},app.callback())
 			  : app;
 
@@ -42,21 +48,21 @@ app.use(compress());
 //html-minify
 // app.use(htmlMinify({collapseWhitespace:true}));
 //favicon.ico
-app.use(convert(favicon(`${conf.staticDir}/favicon.ico`)));
+app.use(convert(favicon(`${staticDir}/favicon.ico`)));
 //static files
-app.use(convert(staticCache(`${conf.staticDir}`,{index:false})));
+app.use(convert(staticCache(`${staticDir}`,{index:false})));
 
 /* 
 * link mongo to cx 
 */
-// app.use(mongo(conf.mongoOption));
+// app.use(mongo(mongoOption));
 
 /*
 *  link connet db method to cx and return a collection
 */
 // app.use(async (cx,next)=>{
 // 	cx.linkDbCollection = (col)=>{
-// 		return cx.mongo.db(conf.mongoOption.db).collection(col);
+// 		return cx.mongo.db(mongoOption.db).collection(col);
 // 	}
 // 	await next();
 // });
@@ -68,12 +74,12 @@ app.use(JWT);
 //routes
 app.use(routes(router));
 
-server.listen(conf.port,(err)=>{
+server.listen(port,(err)=>{
 	if (err) {
 		console.log(err);
 	}else{
-		console.log(`a koa app is started at ${conf.port} port...`);
+		console.log(`a koa app is started at ${port} port...`);
 	};
 });
 
-// open(`http://localhost:${conf.port}`);
+// open(`http://localhost:${port}`);
