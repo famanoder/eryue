@@ -7,6 +7,7 @@
 * Mongodb的启动必须做ip加端口、身份权限认证
 * 统一管理路由：分为页面路由（默认GET）和API路由（默认POST）
 * 默认使用开启formidable上传文件
+* 增加基于ioredis和generic-pool的redis连接池操作
 
 ### 开始
 
