@@ -9,11 +9,14 @@ import bodyParser from 'koa-bodyparser';
 import compress from 'koa-compress';
 import staticCache from 'koa-static';
 
-import JWT from './mids/JWT';
-import reqInfo from './mids/reqInfo';
-import htmlMinify from './mids/html-minify';
 import routes from './routes';
 import conf from './conf';
+const {
+	JWT,
+	reqInfo,
+	htmlMinify
+} = require('./mids');
+
 // import open from 'open';
 
 const app=new Koa();
