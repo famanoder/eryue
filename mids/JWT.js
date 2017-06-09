@@ -21,18 +21,7 @@ async function JWT(cx,next){
 				return token;
 			},
 			verify(token){
-				let decode = null;
-				try{
-					let token = cx.request.query.auth||cx.request.body.auth||cx.headers['auth']||token;
-					decode = jwt.verify(token,secret);
-				}catch(e){
-					console.log(e);
-					return cx.response.body={
-						success:false,
-						result:e.message
-					}
-				}
-				return decode;
+				return jwt.verify(cx.request.query.auth||cx.request.body.auth||cx.headers['auth']||token,secret);
 			}
 		}
 	};
