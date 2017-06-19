@@ -9,7 +9,7 @@ export function simpleTemplate(templ,conf){
 		pars.forEach((c,i)=>{
 			let reg=new RegExp('{\\s*'+c+'\\s*(?:=\\s*(\\S*?))?\\s*?}','g');
 			templ=templ.replace(reg,(a,b)=>{
-				return getArgType(conf[c])=='function'?conf[c]():(conf[c]?conf[c]:(b?b:''));
+				return getArgType(conf[c])=='function'?conf[c]():(conf[c]?conf[c]:(b?b:a));
 			});
 		});
 	}
