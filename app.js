@@ -78,7 +78,7 @@ server.listen(port,(err)=>{
 	if (err) {
 		console.log(err);
 	}else{
-		console.log(`a koa2 app[e-book] is started at ${port} port...`);
+		console.log(`a koa app is started at ${port} port...`);
 	};
 });
 
