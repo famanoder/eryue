@@ -1,31 +1,35 @@
 import jwt from 'jsonwebtoken';
 import config from '../conf';
 
-async function JWT(cx,next){
+async function JWT(){
 	let {support,secret,expire} = config.JWT;
+	let cx = this.context;
 	if (support) {
 		cx.jwt={
 			sign(data,opts){
-				let token = null;
-				try {
-					token = jwt.sign(data,secret,Object.assign({
-						expiresIn:expire
-					},opts));
-				} catch(e) {
-					console.log(e);
-					return cx.response.body={
-						success:false,
-						result:e.message
+				return new Promise((resolve,reject)=>{
+					let token = null;
+					try {
+						token = jwt.sign(data,secret,Object.assign({
+							expiresIn:expire
+						},opts));
+						resolve(token);
+					} catch(e) {
+						console.log(e);
+						reject(e.message);
 					}
-				}
-				return token;
+				});
 			},
 			verify(token){
-				return jwt.verify(cx.request.query.auth||cx.request.body.auth||cx.headers['auth']||token,secret);
+				try{
+					return jwt.verify(token,secret);
+				}catch(e){
+					console.log(e)
+					return e.message;
+				}
 			}
 		}
 	};
-	await next();
 }
 
 export default JWT;

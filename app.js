@@ -39,6 +39,9 @@ const router=KoaRouter();
 //catch error 500
 //options:redirect
 catchError(app);
+// use jwt
+// or you can use session and cookie
+JWT.call(app);
 //small logger
 app.use(reqInfo);
 //parse post
@@ -50,7 +53,7 @@ app.use(compress());
 //favicon.ico
 app.use(convert(favicon(`${staticDir}/favicon.ico`)));
 //static files
-app.use(convert(staticCache(`${staticDir}`,{index:false})));
+app.use(convert(staticCache(`${staticDir}`)));
 
 /* 
 * link mongo to cx 
@@ -66,10 +69,6 @@ app.use(convert(staticCache(`${staticDir}`,{index:false})));
 // 	}
 // 	await next();
 // });
-
-// use jwt to protect restful API
-// or you can use session and cookie
-app.use(JWT);
 
 //routes
 app.use(routes(router));
