@@ -1,17 +1,14 @@
-export function getArgType(arg){
-	return Object.prototype.toString.call(arg).toLowerCase().match(/\s(\w+)/)[1];
+import * as utils from './utils';
+import uploadFiles from './uploadFiles';
+import simpleTemplate from './simpleTemplate';
+import hasStaticDir from './hasStaticDir';
+import JWT from './JWT';
+
+export {
+	utils,
+	uploadFiles,
+	simpleTemplate,
+	hasStaticDir,
+	JWT
 }
 
-export function simpleTemplate(templ,conf){
-	let pars=templ&&templ.match(/{.+?}/g);
-	if (pars) {
-		pars=pars.map(p=>{return p.replace(/{\s*(\w+).*?}/,'$1')});
-		pars.forEach((c,i)=>{
-			let reg=new RegExp('{\\s*'+c+'\\s*(?:=\\s*(\\S*?))?\\s*?}','g');
-			templ=templ.replace(reg,(a,b)=>{
-				return getArgType(conf[c])=='function'?conf[c]():(conf[c]?conf[c]:(b?b:a));
-			});
-		});
-	}
-	return templ;
-}

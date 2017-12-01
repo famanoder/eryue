@@ -1,5 +1,5 @@
 import Koa from 'koa';
-import http from 'https';
+import https from 'https';
 import mongo from 'koa-mongo';
 import favicon from 'koa-favicon';
 import KoaRouter from 'koa-router';
@@ -9,14 +9,14 @@ import bodyParser from 'koa-bodyparser';
 import compress from 'koa-compress';
 import staticCache from 'koa-static';
 
+import { hasStaticDir, JWT } from './modules';
+import { reqInfo } from './middleware';
+
 import routes from './routes';
 import conf from './conf';
 
-const {
-	JWT,
-	reqInfo,
-	htmlMinify
-} = require('./mids');
+const debug = require('debug')('koa2-base: app');
+
 const {
 	SSL,
 	staticDir,
@@ -26,19 +26,21 @@ const {
 
 // import open from 'open';
 
-const app=new Koa();
+const app = new Koa();
 
-const key = SSL.support?fs.readFileSync(SSL.key):'';
-const cert = SSL.support?fs.readFileSync(SSL.cert):'';
+const key = SSL.support? fs.readFileSync(SSL.key):'';
+const cert = SSL.support? fs.readFileSync(SSL.cert):'';
 const server =  SSL.support
-			  ? https.createServer({key,cert},app.callback())
+			  ? https.createServer({key, cert}, app.callback())
 			  : app;
 
-const router=KoaRouter();
+const router = KoaRouter();
 
 //catch error 500
 //options:redirect
 catchError(app);
+// hasStaticDir
+hasStaticDir([staticDir,conf.upload.uploadedDir]);
 // use jwt
 // or you can use session and cookie
 JWT.call(app);
@@ -48,8 +50,6 @@ app.use(reqInfo);
 app.use(bodyParser());
 //compresion
 app.use(compress());
-//html-minify
-// app.use(htmlMinify({collapseWhitespace:true}));
 //favicon.ico
 app.use(convert(favicon(`${staticDir}/favicon.ico`)));
 //static files
@@ -73,11 +73,11 @@ app.use(convert(staticCache(`${staticDir}`)));
 //routes
 app.use(routes(router));
 
-server.listen(port,(err)=>{
+server.listen(port, err => {
 	if (err) {
-		console.log(err);
-	}else{
-		console.log(`a koa app is started at ${port} port...`);
+		debug(err);
+	} else {
+		debug(`a koa app is started at %d port...`, port);
 	};
 });
 

@@ -13,17 +13,17 @@ export default `
 		font-family: 微软雅黑;
 	    font-size: 26px;
 	    margin-left: 10px;
-	    color: #6F7979;
+	    color: #29e0dc;
 	}
 	p {
-	    color: #DC22F3;
+	    color: #29dab9;
 	    font-size: 15px;
 	    font-family: verdana;
 	    margin: 10px;
 	}
 	small{
 		font-family: arial;
-    	color: #454545;
+    	color: #777;
     	margin-left: 10px;
 	}
 	</style>
