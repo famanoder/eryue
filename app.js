@@ -10,7 +10,7 @@ import compress from 'koa-compress';
 import staticCache from 'koa-static';
 
 import { hasStaticDir, JWT } from './modules';
-import { reqInfo } from './middleware';
+import { reqInfo, /* jsonp */ } from './middleware';
 
 import routes from './routes';
 import conf from './conf';
@@ -48,6 +48,8 @@ JWT.call(app);
 app.use(reqInfo);
 //parse post
 app.use(bodyParser());
+//jsonp
+// app.use(jsonp());
 //compresion
 app.use(compress());
 //favicon.ico

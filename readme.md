@@ -4,6 +4,7 @@
 * could use mongoDB
 * could use redisPool
 * support upload with formidable
+* a safety jsonp supported
 * a very simple view
 
 ### 开始

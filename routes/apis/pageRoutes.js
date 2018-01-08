@@ -8,6 +8,7 @@ async function Index(cx,next){
 		'could use mongoDB',
 		'could use redisPool',
 		'support upload with formidable',
+		'a safety jsonp supported',
 		'a very simple view'
 	];
 	const htm = simpleTemplate(indexView, {
@@ -24,11 +25,18 @@ async function Index(cx,next){
 }
 async function preIndex(cx, next){
 	cx.type='text/html';
+	// cx.set('content-type','application/json; charset=utf-8');
 	cx.body='something...';
 	next();
 }
 const pageRoutes = {
 	'/': [preIndex, Index],
+	// '/test_jsonp': async function(cx, next){
+	// 	cx.jsonp({
+	// 		name:'hufeng',
+	// 		age:'24'
+	// 	});
+	// },
 	// just a default route type
 	__setDefaultType__: 'get'
 }
