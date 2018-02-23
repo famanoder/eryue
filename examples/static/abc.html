@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+Logo
+首页
+文章
+专家
+我的博客
+网站导航
+注册
+登录
+手机阅读
+搜索
+写文章
+雪飘七月>nodejs>正文
+nodejs的多进程管理模块child_process
+转载雪飘七月2013-01-28 14:39:08评论(0)897人阅读
+  child_process是Node.js的一個十分重要的模塊，通過它可以實現創建多進程，以利用多核計算資源，同时方便管理各个子模块进程。
+
+  Node.js 0.8的child_process模塊提供了四個創建子進程的函數，分別是spawn，exec，execFile和fork。其中spawn是最原始的創建子進程的函數，其他三個都是對spawn不同程度的封裝。spawn只能運行指定的程序，參數需要在列表中給出，相當於execvp系統函數，而exec可以直接運行複雜的命令。
+
+看下面spawn与exec的差异：
+
+child = child_process.spawn('ls', ['-lh', '/usr']); 
+child.stdout.setEncoding('utf8'); 
+child.stdout.on('data', function(data) { 
+  console.log(data); 
+}); 
+child_process.exec('ls -lh /usr', function(err, stdout, stderr) { 
+  console.log(stdout); 
+}); 
+execFile與spawn的參數相似，也需要分別指定執行的命令和參數，但可以接受一個回調函數，與exec的回調函數相同。它與exec的區別在於不啓動獨立的shell，因此相比更加輕量級。
+
+fork函數用於直接運行Node.js模塊，例如fork(‘./child.js’)，相當於spawn(‘node’, ['./child.js'])。與默認的spawn不同的是，fork會在父進程與子進程直接建立一個IPC管道，用於父子進程之間的通信。例如：
+
+var n = child_process.fork('./child.js'); 
+n.on('message', function(m) { 
+  console.log('PARENT got message:', m); 
+}); 
+n.send({ hello: 'world' }); 
+child.js的内容：
+
+process.on('message', function(m) { 
+  console.log('CHILD got message:', m); 
+}); 
+process.send({ foo: 'bar' }); 
+ 
+
+其中父進程調用fork函數獲取一個返回值，作爲子進程的句柄，通過send函數發送信息，on(‘message’)監聽返回的信息，子進程通過內置的process對象相同的方法與父進程通信。
+
+fork函數有一個問題，就是它只能運行JavaScript代碼，如果你喜歡用CoffeeScript（或者其他任何編譯到js的語言），是無法通過fork調用的。一個簡單的方法是把代碼編譯到JavaScript再運行，但是很不方便，有沒有什麼辦法呢？答案是可以的，還是得回到spawn函數。spawn函數除了接受command, args外，還接受一個options參數。通過把options參數的stdio設爲['ipc']，即可在父子進程之間建立IPC管道。例如子進程使用CoffeeScript：
+
+ 
+
+child_process = require('child_process') 
+options = 
+  stdio: ['ipc'] 
+child = child_process.spawn 'coffee', ['./child.coffee'], options 
+其中只要把spawn的第一個參數設置爲運行對應腳本的解釋器，即可運行，例如使用Continuation.js，只需child = child_process.spawn(‘continuation’, ['./child.coffee'], options)。
+
+转载来源传送门
+
+nodechild_process子进程管理
+0
+分享
+
+收藏
+上一篇：css3 Border属性下一篇：Nodejs中的压缩和解压缩
+猜你喜欢
+前后分离模型之封装 Api 调用
+Springmvc+mybatis+shiro+Dubbo+ZooKeeper j2ee分布式架构
+利用Django实现RESTful API
+springMVC配置
+关于tomcat 多个配置多个host加载多次，导致initSerlet加载多次
+SpringCloud——服务注册与发现Eureka以及注册源码解析
+Python Ajax请求及返回 json
+发表评论
+
+用心的评论会被更多人看到和认可
+Ctrl+Enter 发布发布取消
+雪飘七月
+65
+文章
+
+33W+
+人气
+
+22
+评论
+
+22
+点赞
+
+
+雪飘七月
+私信
+好的文章，和好友一起分享
+TA的其他文章
+Nodejs中的压缩和解压缩
+nodejitsu的部署与管理
+我的友情链接
+AngularJS对IE8的兼容
+七日热门
+3分钟掌握MongoDB中的regex几种用法
+Ansible入门与playbook实战
+解密比特币的那些核心技术原理
+ntp时间同步问题解决方法
+深入浅出处理器（下）_内存管理（映射）
+Copyright © 2005-2018 51CTO.COM 版权所有 京ICP证060544号
+
+写文章
+
+</body>
+</html>
