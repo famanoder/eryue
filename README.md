@@ -2,7 +2,7 @@
 let`s go ! see the examples .
 ### Hello,world!
 ``` javascript
-import { startApp, Router } from 'V';
+import { startApp, Router } from 'eryue';
 
 @Router.get({
 	'/': 'Hello, world !'

@@ -1,8 +1,8 @@
 {
-  "name": "V",
-  "version": "1.0.0",
+  "name": "eryue",
+  "version": "1.0.0-beta",
   "description": "a framework base on koa2",
-  "main": "V.js",
+  "main": "eryue.js",
   "scripts": {
     "dev": "node ./examples/start.js"
   },
@@ -13,6 +13,10 @@
     "node": ">=8.5.0"
   },
   "author": "famanoder",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/famanoder/Eryue.git"
+  },
   "license": "ISC",
   "pendencies": {
     "koa": "^2.5.0",

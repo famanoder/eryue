@@ -4,7 +4,7 @@ import Middlewares from './lib/middlewares';
 import Injector from './lib/injector';
 import Router from './lib/router';
 
-const V = Object.create(Object.prototype, {
+const Eryue = Object.create(Object.prototype, {
 	startApp: { value: startApp },
 	beforeStart: { value: beforeStart },
 	Middlewares: { value: Middlewares },
@@ -12,6 +12,6 @@ const V = Object.create(Object.prototype, {
 	Router: { value: Router }
 });
 
-export default V;
+export default Eryue;
 
-export { V, beforeStart, Middlewares, Injector, Router, startApp };
+export { Eryue, beforeStart, Middlewares, Injector, Router, startApp };

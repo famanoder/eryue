@@ -1,4 +1,4 @@
-import { startApp, beforeStart, Middlewares, Injector, Router } from '../V';
+import { startApp, beforeStart, Middlewares, Injector, Router } from '../eryue';
 
 @beforeStart(koaApp => {
 	koaApp.context.name = 'haha';
