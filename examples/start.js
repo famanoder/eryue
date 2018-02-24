@@ -1,2 +1,2 @@
 require('babel-core/register');
-require('./v');
+require('./hello_world');
