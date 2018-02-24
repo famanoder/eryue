@@ -37,7 +37,7 @@ function hasStaticDir(dirs) {
 function checkVersion() {
 	let nodeVersion = _package2.default.engines.node;
 	if (!_semver2.default.satisfies(process.version, nodeVersion)) {
-		const msg = '  You must upgrade node to >=' + nodeVersion + '.x to contine';
+		const msg = '  current node version: ' + process.version + ' \n  You must upgrade node to >=' + nodeVersion + '.x to contine';
 		throw msg;
 	}
 }

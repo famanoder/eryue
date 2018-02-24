@@ -1,16 +1,16 @@
 {
   "name": "eryue",
-  "version": "1.0.4-beta",
+  "version": "1.0.5",
   "description": "a framework base on koa2",
-  "main": "release/index.js",
+  "main": "release/eryue.js",
   "scripts": {
-    "build": "babel lib --out-dir release"
+    "publish": "babel lib --out-dir release && npm publish"
   },
   "keywords": [
     "koa2"
   ],
   "engines": {
-    "node": ">=8.5.0"
+    "node": ">=8.4.0"
   },
   "author": "famanoder",
   "repository": {

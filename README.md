@@ -32,3 +32,8 @@ class App {
 
 startApp(App).then(port => console.log(`a app started at port: ${port} !`));
 ```
+last, startup !
+``` javascript
+npm i -D babel-core babel-plugin-transform-class-properties babel-plugin-transform-decorators-legacy babel-preset-env
+node start
+```
