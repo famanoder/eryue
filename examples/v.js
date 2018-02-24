@@ -40,8 +40,8 @@ import { startApp, beforeStart, Middlewares, Injector, Router } from '../V';
 		}
 	} 
 })
-@Router.get({
-	'api/user/login': 'd'
+@Router.post({
+	'api/user/login': async cx => cx.body='a post request'
 })
 class App {
 	port = 1234
