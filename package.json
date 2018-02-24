@@ -1,10 +1,11 @@
 {
   "name": "eryue",
-  "version": "1.0.0-beta",
+  "version": "1.0.3",
   "description": "a framework base on koa2",
-  "main": "eryue.js",
+  "main": "index.js",
   "scripts": {
-    "dev": "node ./examples/start.js"
+    "dev": "node ./examples/start.js",
+    "build": "babel eryue.js --out-file index.js"
   },
   "keywords": [
     "koa2"
@@ -18,7 +19,11 @@
     "url": "https://github.com/famanoder/Eryue.git"
   },
   "license": "ISC",
-  "pendencies": {
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-preset-env": "^1.6.1",
     "koa": "^2.5.0",
     "koa-bodyparser": "^4.2.0",
     "koa-compress": "^2.0.0",
@@ -26,11 +31,5 @@
     "koa-favicon": "^2.0.0",
     "koa-router": "^7.4.0",
     "koa-static": "^4.0.2"
-  },
-  "dependencies": {
-    "babel-core": "^6.26.0",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "babel-preset-env": "^1.6.1"
   }
 }

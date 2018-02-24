@@ -1,4 +1,4 @@
-import { startApp, beforeStart, Middlewares, Injector, Router } from '../eryue';
+import { startApp, beforeStart, Middlewares, Injector, Router } from '../lib/eryue';
 
 @beforeStart(koaApp => {
 	koaApp.context.name = 'haha';

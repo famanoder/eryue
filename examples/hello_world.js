@@ -1,4 +1,4 @@
-import { startApp, Router } from '../eryue';
+import { startApp, Router } from '../lib/eryue';
 
 @Router.get({
 	'/': 'Hello, world !'

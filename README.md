@@ -1,6 +1,25 @@
 # A better way to experience koa2 !
-let`s go ! see the examples .
-### Hello,world!
+### let`s go to see the HelloWorld !
+
+first, you have to add a .babelrc file:
+``` json
+{
+    "presets": [
+        ['env', {
+          "targets": {
+            "node": "current"
+          }
+        }]
+    ],
+    "plugins": ["transform-decorators-legacy", "transform-class-properties"]
+}
+then, add a entry file, like start.js:
+``` javascript
+require('babel-core/register');
+require('./hello_world');
+```
+```
+app.js
 ``` javascript
 import { startApp, Router } from 'eryue';
 
