@@ -2,7 +2,7 @@
 ### let`s go to see the HelloWorld !
 
 first, you have to add a .babelrc file:
-``` json
+``` javascript
 {
     "presets": [
         ['env', {
@@ -13,11 +13,11 @@ first, you have to add a .babelrc file:
     ],
     "plugins": ["transform-decorators-legacy", "transform-class-properties"]
 }
+```
 then, add a entry file, like start.js:
 ``` javascript
 require('babel-core/register');
 require('./hello_world');
-```
 ```
 app.js
 ``` javascript
