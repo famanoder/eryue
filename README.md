@@ -19,7 +19,7 @@ then, add a entry file, like start.js:
 require('babel-core/register');
 require('./hello_world');
 ```
-app.js
+hello_world.js
 ``` javascript
 import { startApp, Router } from 'eryue';
 
