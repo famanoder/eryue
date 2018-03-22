@@ -50,4 +50,8 @@ class App {
 }
 
 
-startApp(App).then(port => console.log(`a app started at port: ${port} !`));
+startApp(App, {
+	key:'../lets/famanoder.com-key.pem',
+	cert:'../lets/famanoder.com-crt.pem'
+}).then(port => console.log(`a app started at port: ${port} !`));
+

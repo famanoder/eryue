@@ -1,10 +1,10 @@
 {
   "name": "eryue",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "a framework base on koa2",
   "main": "release/eryue.js",
   "scripts": {
-    "publish": "babel lib --out-dir release && npm publish"
+    "prepublish": "babel lib --out-dir release"
   },
   "keywords": [
     "koa2"

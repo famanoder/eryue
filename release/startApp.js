@@ -76,10 +76,13 @@ function useMiddlewares(middlewares) {
 		});
 	};
 }
+function useHttps({ key, cert } = {}) {
+	return key && cert ? require('https').createServer({ key, cert }, this.callback()) : this;
+}
 function injectProps(props) {
 	return Object.assign(this.context, props);
 }
-function startApp(clas, callback) {
+function startApp(clas, { key, cert } = {}) {
 	const app = new _koa2.default();
 	const _app = new clas();
 	const router = (0, _koaRouter2.default)();
@@ -110,7 +113,7 @@ function startApp(clas, callback) {
 	useMiddlewares.call(app, [(0, _koaCompress2.default)(), (0, _koaBodyparser2.default)(), _fs2.default.existsSync(faviconPath) ? (0, _koaConvert2.default)((0, _koaFavicon2.default)(faviconPath)) : null].concat(middlewares.length ? middlewares : []).concat((0, _koaConvert2.default)((0, _koaStatic2.default)(staticOptions.dir, staticOptions))).concat(router.routes()));
 
 	return new Promise((resolve, reject) => {
-		app.listen(port, err => {
+		useHttps.call(app, { key, cert }).listen(port, err => {
 			if (err) {
 				reject(err);
 			} else {
