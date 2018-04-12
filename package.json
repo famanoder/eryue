@@ -1,6 +1,6 @@
 {
   "name": "eryue",
-  "version": "1.0.6",
+  "version": "1.0.8",
   "description": "a framework base on koa2",
   "main": "release/eryue.js",
   "scripts": {
