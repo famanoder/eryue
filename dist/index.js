@@ -1,29 +1,16 @@
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _application = _interopRequireDefault(require("./lib/application"));
-
 var _start = _interopRequireDefault(require("./lib/start"));
+
+var _decorator = require("./lib/decorator");
+
+var _dec, _dec2, _class;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-class Eryue extends _application.default {
-  constructor() {
-    super();
-    return (0, _start.default)();
-  }
+let App = (_dec = (0, _decorator.Config)('config.js'), _dec2 = (0, _decorator.Middlewares)([async (cx, next) => {
+  cx.body = 123;
+  await next();
+}]), _dec(_class = _dec2(_class = class App extends _start.default {}) || _class) || _class); // class App extends Eryue {};
 
-  static start() {
-    return new Eryue();
-  }
-
-} // class App extends Eryue {};
-// new App();
-// Eryue.start();
-
-
-exports.default = Eryue;
+new App(); // Eryue.start();

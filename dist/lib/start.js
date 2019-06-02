@@ -11,14 +11,19 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function start(callback) {
   const app = new _application.default();
-  app.use(async (cx, next) => {
-    cx.body = 'hello, world!';
-  });
+  app.useAll();
   app.listen(1234, p => {
     console.log(p);
   });
   return app;
 }
 
-var _default = start;
-exports.default = _default;
+class Eryue {
+  constructor() {
+    return start();
+  }
+
+}
+
+exports.default = Eryue;
+;

@@ -32,7 +32,8 @@ App.start()
 http.createServer(new App().callback()).listen();
 
 @Controler({
-model: ['user', 'order', 'helper']
+model: ['user', 'order', 'helper'],
+service: []
 })
 export class UserControler {
 constructor(user, order, helper) {

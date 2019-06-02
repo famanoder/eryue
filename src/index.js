@@ -1,17 +1,16 @@
-import Application from './lib/application';
-import start from './lib/start';
+import Eryue from './lib/start';
+import {Config, Middlewares} from './lib/decorator';
 
-export default class Eryue extends Application {
-  constructor() {
-    super();
-    return start();
+@Config('config.js')
+@Middlewares([
+  async (cx, next) => {
+    cx.body = 123;
+    await next();
   }
-  static start() {
-    return new Eryue();
-  }
-}
+])
+class App extends Eryue {}
 
 
 // class App extends Eryue {};
-// new App();
+new App()
 // Eryue.start();
