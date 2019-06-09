@@ -3,10 +3,6 @@ import injector from '@eryue/injector';
 import compose from 'koa-compose';
 import {CONFIG, MIDDLEWARES} from './context-names';
 
-export function getConfig() {
-  return injector.deps.get(CONFIG);
-}
-
 export default class Application extends Koa {
   constructor() {
     super();

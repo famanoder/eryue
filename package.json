@@ -16,8 +16,13 @@
     "@eryue/injector": "^1.0.2",
     "@eryue/utils": "^1.0.0",
     "koa": "^2.7.0",
+    "koa-bodyparser": "^4.2.1",
     "koa-compose": "^4.1.0",
-    "mz": "^2.7.0"
+    "koa-compress": "^3.0.0",
+    "koa-favicon": "^2.0.1",
+    "koa-static": "^5.0.0",
+    "mz": "^2.7.0",
+    "portfinder": "^1.0.20"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",

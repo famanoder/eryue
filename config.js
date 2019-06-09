@@ -1,3 +1,11 @@
 module.exports = {
-    port: 1234
-  }
+  // port: 8080,
+  // favicon: '',
+  staticOption: {
+    root: 'static'
+  },
+  // https: {
+  //   key: '',
+  //   cert: ''
+  // },
+}

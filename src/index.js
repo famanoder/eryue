@@ -10,7 +10,4 @@ import {Config, Middlewares} from './lib/decorator';
 ])
 class App extends Eryue {}
 
-
-// class App extends Eryue {};
 new App()
-// Eryue.start();
