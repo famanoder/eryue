@@ -7,7 +7,7 @@ exports.default = void 0;
 
 var _injector = _interopRequireDefault(require("@eryue/injector"));
 
-var _portfinder = _interopRequireDefault(require("portfinder"));
+var _utils = require("@eryue/utils");
 
 var _application = _interopRequireDefault(require("./application"));
 
@@ -32,14 +32,8 @@ function withHttps({
 }
 
 async function detectPort(port) {
-  port = port || process.env.NODE_PORT;
-
   if (!port) {
-    try {
-      port = await _portfinder.default.getPortPromise();
-    } catch (e) {
-      throw e;
-    }
+    port = await (0, _utils.getPort)();
   }
 
   return port;
@@ -47,13 +41,18 @@ async function detectPort(port) {
 
 async function start({
   port,
-  https
+  https,
+  onlisten
 } = {}) {
   const app = new _application.default();
   port = await detectPort(port);
   app.useAll();
-  withHttps.call(app, https).listen(port, p => {
-    console.log('listening on ' + port);
+  withHttps.call(app, https).listen(port, err => {
+    if (err) throw err;
+
+    if ((0, _utils.getArgType)(onlisten).isFunction) {
+      onlisten.call(app, port);
+    }
   });
   return app;
 }

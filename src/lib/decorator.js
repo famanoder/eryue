@@ -2,6 +2,7 @@ import fs from 'mz/fs';
 import {join} from 'path';
 import injector from '@eryue/injector';
 import {getArgType, assert, _} from '@eryue/utils';
+import router from './router';
 import {CONFIG, MIDDLEWARES} from './context-names';
 
 export function Config(conf) {
@@ -33,3 +34,13 @@ export function Middlewares(...arr) {
   injector.add(MIDDLEWARES, middleares);
   return function(target) {}
 }
+
+const Router = {};
+;['all', 'get', 'put', 'post', 'patch', 'del', 'delete'].forEach(method => {
+  Router[method] = function() {
+    router[method].apply(router, arguments);
+    return function(target) {};
+  }
+});
+
+export {Router};

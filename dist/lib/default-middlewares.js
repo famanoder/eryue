@@ -15,6 +15,8 @@ var _injector = _interopRequireDefault(require("@eryue/injector"));
 
 var _utils = require("@eryue/utils");
 
+var _router = require("./router");
+
 var _contextNames = require("./context-names");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -46,7 +48,7 @@ function withFavicon({
   return require('koa-favicon')(favicon);
 }
 
-const middlewares = [(0, _koaCompress.default)(), (0, _koaBodyparser.default)(), loadConfig(withStatic), loadConfig(withFavicon)];
+const middlewares = [(0, _koaCompress.default)(), (0, _koaBodyparser.default)(), loadConfig(withStatic), loadConfig(withFavicon), _router.loadRoutes];
 
 var _default = (0, _koaCompose.default)(middlewares);
 

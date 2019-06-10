@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Config = Config;
 exports.Middlewares = Middlewares;
+exports.Router = void 0;
 
 var _fs = _interopRequireDefault(require("mz/fs"));
 
@@ -13,6 +14,8 @@ var _path = require("path");
 var _injector = _interopRequireDefault(require("@eryue/injector"));
 
 var _utils = require("@eryue/utils");
+
+var _router = _interopRequireDefault(require("./router"));
 
 var _contextNames = require("./context-names");
 
@@ -54,3 +57,14 @@ function Middlewares(...arr) {
 
   return function (target) {};
 }
+
+const Router = {};
+exports.Router = Router;
+;
+['all', 'get', 'put', 'post', 'patch', 'del', 'delete'].forEach(method => {
+  Router[method] = function () {
+    _router.default[method].apply(_router.default, arguments);
+
+    return function (target) {};
+  };
+});

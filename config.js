@@ -8,4 +8,7 @@ module.exports = {
   //   key: '',
   //   cert: ''
   // },
+  onlisten(port) {
+    console.log('an app listening on ' + port);
+  }
 }

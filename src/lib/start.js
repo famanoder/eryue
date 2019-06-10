@@ -1,5 +1,5 @@
 import injector from '@eryue/injector';
-import portfinder from 'portfinder';
+import {getPort, getArgType} from '@eryue/utils';
 import Application from './application';
 import middlewares from './default-middlewares';
 import {Middlewares} from './decorator';
@@ -10,20 +10,16 @@ function withHttps({ key, cert } = {}) {
 }
 
 async function detectPort(port) {
-  port = port || process.env.NODE_PORT;
   if(!port) {
-    try{
-      port = await portfinder.getPortPromise();
-    }catch(e){
-      throw e;
-    }
+    port = await getPort();
   }
   return port;
 }
 
 async function start({
   port,
-  https
+  https,
+  onlisten
 } = {}) {
   const app = new Application();
 
@@ -33,8 +29,11 @@ async function start({
 
   withHttps
   .call(app, https)
-  .listen(port, p => {
-    console.log('listening on '+port)
+  .listen(port, err => {
+    if(err) throw err;
+    if(getArgType(onlisten).isFunction) {
+      onlisten.call(app, port);
+    }
   });
 
   return app;

@@ -3,6 +3,7 @@ import compose from 'koa-compose';
 import compress from 'koa-compress';
 import injector from '@eryue/injector';
 import {getArgType} from '@eryue/utils';
+import {loadRoutes} from './router';
 import {CONFIG} from './context-names';
 
 function loadConfig(fn) {
@@ -33,7 +34,8 @@ const middlewares = [
   compress(),
   bodyparser(),
   loadConfig(withStatic),
-  loadConfig(withFavicon)
+  loadConfig(withFavicon),
+  loadRoutes
 ];
 
 export default compose(middlewares);
