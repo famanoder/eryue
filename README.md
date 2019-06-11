@@ -1,63 +1,86 @@
-伪代码 plan：
+>  a nodejs framework base on Koajs and enhanced it!
 
-1. 基于 Koajs，并且增强 Koajs；
-2. 装饰器版 Koajs => Middleware
-3. 重新包装 context
-4. 依赖注入，区分model/controler/helper/render
-5. Router => function => call({注入对象}) Filter
-6. 默认启用的 middleware => config => enable
+### Usage
 
-<!-- 
-@Mongodb
-@Mongoose
-@MySQL 
--->
+-----
 
-@BeforeStart
-@Config
-@Middleware
-@Inject({
-UserControler,
-UserModel,
-Logger
+* **Install**
+
+```js
+npm i @eryue/core
+// or
+yarn add @eryue/core
+```
+
+* **Hello, world !**
+
+```js
+import Eryue, {Router, Config} from '@eryue/core';
+
+@Config({
+  port: 1234,
+  onlisten(port) {
+    console.log('an app server started at ' + port);
+  }
 })
-@Router
-export class App extends Eryue {
-...config
-onerror() {},
-onstart() {}
-}
-
-App.start()
-http.createServer(new App().callback()).listen();
-
-@Controler({
-model: ['user', 'order', 'helper'],
-service: []
+@Router.get({
+  greet: 'Hello, world !'
 })
-export class UserControler {
-constructor(user, order, helper) {
-<!-- this.user = user;
-this.order = order; -->
-}
-async getUserList(id) {
-this.helper.curl('/');
-const users = await this.user.findById(id);
-return users;
-}
-}
+class App extends Eryue {}
 
-@Model({
+new App();
 
+// curl localhost:1234/greet
+// => Hello, world ! 
+```
+
+### Decorators
+
+-----
+
+* **@Config(Object|String)**
+
+we can bind our app's config from here, if option is String, we'll try ensure it exists and require it as config, or just an Object, then we can visit it by `cx.config`;
+
+eg: 
+
+```js
+@Config({
+  port: 1234
 })
-export class UserModel {
+// or 
+@Config('app.config.js')
 
+// app.config.js
+module.exports = {
+  port: 1234
+}
+```
+
+* **@Router[all|get|put|post|patch|del|delete](prefix, Object)**
+
+we provide a very nice way to make your router Configurable & Combinable & Reusable, yeah, just a function mapping. see detail [koa-router-mapping](https://github.com/famanoder/koa-router-mapping);
+
+let's define a api, eg: `/api/user/getUserInfo`.
+
+we recommand ervery api is a function or an array of function. consider the following pseudocode example.
+
+```js
+async function getUserInfo(cx, next) {
+  const userInfo = await cx.service.getUserInfo(userId);
+  cx.body = userInfo;
 }
 
-async function getUserList(eryueCtx = {controler}, _ctx = {body, query, params}) {
-if(!body.id) {
-return this.response.failed(401, 'unauth...');
-}
-const userList = await controler.getUserList(body.id);
-this.response.success(200, userList);
-}
+// api path can be splited by '/'
+@Router.get('api', {
+  'user/getUserInfo': getUserInfo
+})
+class App extends Eryue {}
+
+new App();
+```
+
+and so on, base on some functions, our api definition become to Combinable & Reusable.
+
+* **@Middlewares**
+
