@@ -6,11 +6,11 @@ import {Config, Middlewares, Router} from './lib/decorator';
   user: 'userrrr'
 })
 @Middlewares([
-  // async (cx, next) => {
-  //   cx.body = 123;
-  //   await next();
-  // }
+  async (cx, next) => {
+    cx.body = cx.config
+    // await next();
+  }
 ])
 class App extends Eryue {}
 
-new App()
+new App().then(port => console.log(`an app server started at ${port}.`));

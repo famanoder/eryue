@@ -22,7 +22,8 @@ var _contextNames = require("./context-names");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function Config(conf) {
-  const config = _injector.default.deps.get(_contextNames.CONFIG) || {};
+  const [config = {}] = _injector.default.resolve(_contextNames.CONFIG);
+
   const argType = (0, _utils.getArgType)(conf);
 
   _utils.assert.ok(argType.isString || argType.isObject, 'invalid argument.'); // maybe a config file
@@ -50,7 +51,8 @@ function Config(conf) {
 }
 
 function Middlewares(...arr) {
-  let middleares = _injector.default.deps.get(_contextNames.MIDDLEWARES) || [];
+  let [middleares = []] = _injector.default.resolve(_contextNames.MIDDLEWARES);
+
   middleares = middleares.concat(_utils._.flatten(arr));
 
   _injector.default.add(_contextNames.MIDDLEWARES, middleares);

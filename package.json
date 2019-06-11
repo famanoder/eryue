@@ -7,7 +7,9 @@
   "author": "famanoder <915905174@qq.com>",
   "license": "MIT",
   "scripts": {
-    "build": "./node_modules/.bin/babel src --out-dir dist -w --verbose --delete-dir-on-start"
+    "build": "./node_modules/.bin/babel src --out-dir dist --delete-dir-on-start",
+    "dev": "yarn build -w",
+    "prepublish": "yarn build"
   },
   "engines": {
     "node": ">= 8.1.4"

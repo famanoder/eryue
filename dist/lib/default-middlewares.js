@@ -23,7 +23,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function loadConfig(fn) {
   return async (cx, next) => {
-    const conf = _injector.default.deps.get(_contextNames.CONFIG);
+    const [conf] = _injector.default.resolve(_contextNames.CONFIG);
 
     if ((0, _utils.getArgType)(fn).isFunction) {
       const middleware = fn.call(cx, conf);

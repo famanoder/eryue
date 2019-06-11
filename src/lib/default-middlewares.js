@@ -8,7 +8,7 @@ import {CONFIG} from './context-names';
 
 function loadConfig(fn) {
   return async (cx, next) => {
-    const conf = injector.deps.get(CONFIG);
+    const [conf] = injector.resolve(CONFIG);
 
     if(getArgType(fn).isFunction) {
       const middleware = fn.call(cx, conf);

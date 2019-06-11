@@ -18,11 +18,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 class Application extends _koa.default {
   constructor() {
     super();
-    this[_contextNames.CONFIG] = _injector.default.deps.get(_contextNames.CONFIG);
+
+    const [config] = _injector.default.resolve(_contextNames.CONFIG);
+
+    this.context.config = config;
   }
 
   useAll() {
-    const middlewares = _injector.default.deps.get(_contextNames.MIDDLEWARES);
+    const [middlewares] = _injector.default.resolve(_contextNames.MIDDLEWARES);
 
     this.use((0, _koaCompose.default)(middlewares));
   }

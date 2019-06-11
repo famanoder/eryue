@@ -6,10 +6,11 @@ import {CONFIG, MIDDLEWARES} from './context-names';
 export default class Application extends Koa {
   constructor() {
     super();
-    this[CONFIG] = injector.deps.get(CONFIG);
+    const [config] = injector.resolve(CONFIG);
+    this.context.config = config;
   }
   useAll() {
-    const middlewares = injector.deps.get(MIDDLEWARES);
+    const [middlewares] = injector.resolve(MIDDLEWARES);
     this.use(compose(middlewares));
   }
 }

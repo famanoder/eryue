@@ -47,19 +47,24 @@ async function start({
   const app = new _application.default();
   port = await detectPort(port);
   app.useAll();
-  withHttps.call(app, https).listen(port, err => {
-    if (err) throw err;
+  withHttps.call(app, https);
+  return new Promise((rs, rj) => {
+    app.listen(port, err => {
+      if (err) throw err;
 
-    if ((0, _utils.getArgType)(onlisten).isFunction) {
-      onlisten.call(app, port);
-    }
+      if ((0, _utils.getArgType)(onlisten).isFunction) {
+        onlisten.call(app, port);
+      } // callback app for supertest
+
+
+      rs(port, app);
+    });
   });
-  return app;
 }
 
 let Eryue = (_dec = (0, _decorator.Middlewares)(_defaultMiddlewares.default), _dec(_class = class Eryue {
   constructor() {
-    const conf = _injector.default.deps.get(_contextNames.CONFIG);
+    const [conf] = _injector.default.resolve(_contextNames.CONFIG);
 
     return start(conf);
   }

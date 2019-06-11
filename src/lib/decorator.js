@@ -6,7 +6,7 @@ import router from './router';
 import {CONFIG, MIDDLEWARES} from './context-names';
 
 export function Config(conf) {
-  const config = injector.deps.get(CONFIG) || {};
+  const [config = {}] = injector.resolve(CONFIG);
   const argType = getArgType(conf);
 
   assert.ok(argType.isString || argType.isObject, 'invalid argument.');
@@ -29,7 +29,7 @@ export function Config(conf) {
 }
 
 export function Middlewares(...arr) {
-  let middleares = injector.deps.get(MIDDLEWARES) || [];
+  let [middleares = []] = injector.resolve(MIDDLEWARES);
   middleares = middleares.concat(_.flatten(arr));
   injector.add(MIDDLEWARES, middleares);
   return function(target) {}

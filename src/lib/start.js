@@ -26,23 +26,25 @@ async function start({
   port = await detectPort(port);
 
   app.useAll();
-
-  withHttps
-  .call(app, https)
-  .listen(port, err => {
-    if(err) throw err;
-    if(getArgType(onlisten).isFunction) {
-      onlisten.call(app, port);
-    }
+  withHttps.call(app, https);
+  
+  return new Promise((rs, rj) => {
+    app.listen(port, err => {
+      if(err) throw err;
+      if(getArgType(onlisten).isFunction) {
+        onlisten.call(app, port);
+      }
+      // callback app for supertest
+      rs(port, app);
+    });
   });
-
-  return app;
+  
 }
 
 @Middlewares(middlewares)
 export default class Eryue {
   constructor() {
-    const conf = injector.deps.get(CONFIG);
+    const [conf] = injector.resolve(CONFIG);
     return start(conf);
   }
 };
