@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@eryue/injector": "^1.0.2",
-    "@eryue/koa-router-mapping": "^1.0.1",
+    "@eryue/koa-router-mapping": "^1.0.3",
     "@eryue/utils": "^1.0.0",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",

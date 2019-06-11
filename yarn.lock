@@ -670,10 +670,10 @@
   dependencies:
     lodash.flatten "^4.4.0"
 
-"@eryue/koa-router-mapping@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@eryue/koa-router-mapping/-/koa-router-mapping-1.0.1.tgz#a5e255b1cdd33a0e8eab344d0944141eecbd3624"
-  integrity sha512-T6QrMeVijXJsAy9RFvamDBWZjqXl8CNg9QmASYWUcCB2wzwWnE5S5yS1oC3cEV+6TAV10oszRoGSLj7c2CJ/wQ==
+"@eryue/koa-router-mapping@1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@eryue/koa-router-mapping/-/koa-router-mapping-1.0.3.tgz#ebbcb01fbe2c334af0c7782928ebdefab2d025e7"
+  integrity sha512-TzxIzRnfaphrJYKUkHhGHjXwpcjLEUI3nFUbGPHd5hE7Q5yBalg5WMYan1xzhnbmtWUb4RxvByuJzWPpxiMnMg==
   dependencies:
     koa-router "^7.4.0"
 
