@@ -1,5 +1,5 @@
 {
-  "name": "@eryue/eryue",
+  "name": "@eryue/core",
   "version": "1.0.0",
   "description": "a nodejs framework base on Koajs and enhanced it!",
   "main": "dist",
