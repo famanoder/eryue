@@ -1,13 +1,21 @@
 import Koa from 'koa';
-import injector from '@eryue/injector';
 import compose from 'koa-compose';
-import {CONFIG, MIDDLEWARES} from './context-names';
+import injector from '@eryue/injector';
+import {CONFIG, MIDDLEWARES, SERVICE} from './context-names';
 
 export default class Application extends Koa {
   constructor() {
     super();
-    const [config] = injector.resolve(CONFIG);
-    this.context.config = config;
+    this.bindContext({
+      config: CONFIG,
+      service: SERVICE
+    });
+  }
+  bindContext(fields) {
+    for(const field in fields) {
+      const [injectVal] = injector.resolve(fields[field]); 
+      this.context[field] = injectVal;
+    }
   }
   useAll() {
     const [middlewares] = injector.resolve(MIDDLEWARES);

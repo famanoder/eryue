@@ -7,9 +7,9 @@ exports.default = void 0;
 
 var _koa = _interopRequireDefault(require("koa"));
 
-var _injector = _interopRequireDefault(require("@eryue/injector"));
-
 var _koaCompose = _interopRequireDefault(require("koa-compose"));
+
+var _injector = _interopRequireDefault(require("@eryue/injector"));
 
 var _contextNames = require("./context-names");
 
@@ -18,10 +18,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 class Application extends _koa.default {
   constructor() {
     super();
+    this.bindContext({
+      config: _contextNames.CONFIG,
+      service: _contextNames.SERVICE
+    });
+  }
 
-    const [config] = _injector.default.resolve(_contextNames.CONFIG);
+  bindContext(fields) {
+    for (const field in fields) {
+      const [injectVal] = _injector.default.resolve(fields[field]);
 
-    this.context.config = config;
+      this.context[field] = injectVal;
+    }
   }
 
   useAll() {

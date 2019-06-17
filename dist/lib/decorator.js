@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Config = Config;
 exports.Middlewares = Middlewares;
+exports.Service = Service;
 exports.Router = void 0;
 
 var _fs = _interopRequireDefault(require("mz/fs"));
@@ -58,6 +59,23 @@ function Middlewares(...arr) {
   _injector.default.add(_contextNames.MIDDLEWARES, middleares);
 
   return function (target) {};
+}
+
+function Service(target) {
+  const name = target.name.toLowerCase();
+  const service = new target();
+
+  let [services] = _injector.default.resolve(_contextNames.SERVICE);
+
+  if (services) {
+    services[name] = service;
+  } else {
+    services = {
+      [name]: service
+    };
+  }
+
+  _injector.default.add(_contextNames.SERVICE, services);
 }
 
 const Router = {};

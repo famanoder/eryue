@@ -3,7 +3,7 @@ import {join} from 'path';
 import injector from '@eryue/injector';
 import {getArgType, assert, _} from '@eryue/utils';
 import router from './router';
-import {CONFIG, MIDDLEWARES} from './context-names';
+import {CONFIG, MIDDLEWARES, SERVICE} from './context-names';
 
 export function Config(conf) {
   const [config = {}] = injector.resolve(CONFIG);
@@ -33,6 +33,20 @@ export function Middlewares(...arr) {
   middleares = middleares.concat(_.flatten(arr));
   injector.add(MIDDLEWARES, middleares);
   return function(target) {}
+}
+
+export function Service(target) {
+  const name = target.name.toLowerCase();
+  const service = new target;
+  let [services] = injector.resolve(SERVICE);
+  if(services) {
+    services[name] = service;
+  }else{
+    services = {
+      [name]: service
+    }
+  }
+  injector.add(SERVICE, services);
 }
 
 const Router = {};
