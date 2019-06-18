@@ -17,9 +17,17 @@ let User = (0, _decorator.Service)(_class = class User {
 }) || _class;
 
 let App = (_dec = (0, _decorator.Config)('config.js'), _dec2 = _decorator.Router.get('v1', {
-  user: async (cx, next) => {
-    cx.body = cx.service.user.getUserList(); // await next();
-  }
+  'user': async ({
+    context,
+    next,
+    service
+  }) => {
+    // console.log(cx);
+    const user = await service.user.getUserList();
+    context.body = user; // cx.success(user);
+    // await next();
+  },
+  'greet': 'Hello, world.'
 }), _dec3 = (0, _decorator.Middlewares)([async (cx, next) => {
   cx.body = 'cx.service.user.getUserList()'; // await next();
 }]), _dec(_class2 = _dec2(_class2 = _dec3(_class2 = class App extends _start.default {}) || _class2) || _class2) || _class2);

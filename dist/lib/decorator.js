@@ -93,7 +93,7 @@ function Service(target) {
  *  user: {
  *    getUserInfo: async cx => {
  *      const userInfo = await 'userinfo';
- *      cx.body = userInfo;
+ *      cx.context.body = userInfo;
  *    }
  *  }
  * })
@@ -105,33 +105,8 @@ const Router = {};
 exports.Router = Router;
 ;
 ['all', 'del', 'delete', 'get', 'patch', 'post', 'put'].forEach(method => {
-  Router[method] = function (route, handles) {
-    const handleType = (0, _utils.getArgType)(handles);
-
-    if (handleType.isFunction) {
-      handles = [handles];
-    }
-
-    if (!handleType.isArray) {
-      handles = [async cx => {
-        cx.context.body = String(handles); // cx.success/cx.fail
-      }];
-    }
-
-    const newHandles = handles.map(handle => {
-      return (cx, next) => {
-        if ((0, _utils.getArgType)(handle).isFunction) {
-          handle.call(cx, {
-            next,
-            context: cx,
-            config: cx.config,
-            service: cx.service
-          });
-        }
-      };
-    });
-
-    _router.default[method].apply(_router.default, newHandles);
+  Router[method] = function () {
+    _router.default[method].apply(_router.default, arguments);
 
     return function (target) {};
   };

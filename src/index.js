@@ -11,10 +11,14 @@ class User {
 
 @Config('config.js')
 @Router.get('v1', {
-  user: async (cx, next) => {
-    cx.body = cx.service.user.getUserList();
+  'user': async ({context, next, service}) => {
+    // console.log(cx);
+    const user = await service.user.getUserList();
+    context.body = user;
+    // cx.success(user);
     // await next();
-  }
+  },
+  'greet': 'Hello, world.'
 })
 @Middlewares([
   async (cx, next) => {
