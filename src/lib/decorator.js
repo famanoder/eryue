@@ -35,6 +35,16 @@ export function Middlewares(...arr) {
   return function(target) {}
 }
 
+/**
+ * @Service
+ * class Test {
+ *  toString() {
+ *    console.log('test');
+ *  }
+ * }
+ * 
+ * cx.service.test.toString();
+ */
 export function Service(target) {
   const name = target.name.toLowerCase();
   const service = new target;
@@ -49,10 +59,43 @@ export function Service(target) {
   injector.add(SERVICE, services);
 }
 
+/**
+ * @Router.get('api', {
+ *  user: {
+ *    getUserInfo: async cx => {
+ *      const userInfo = await 'userinfo';
+ *      cx.body = userInfo;
+ *    }
+ *  }
+ * })
+ * class App extends Eryue {}
+ */
 const Router = {};
-;['all', 'get', 'put', 'post', 'patch', 'del', 'delete'].forEach(method => {
-  Router[method] = function() {
-    router[method].apply(router, arguments);
+;['all', 'del', 'delete', 'get', 'patch', 'post', 'put'].forEach(method => {
+  Router[method] = function(route, handles) {
+    const handleType = getArgType(handles);
+    if (handleType.isFunction) {
+      handles = [handles];
+    }
+    if (!handleType.isArray) {
+      handles = [async cx => {
+        cx.context.body = String(handles);
+        // cx.success/cx.fail
+      }];
+    }
+    const newHandles = handles.map(handle => {
+      return (cx, next) => {
+        if(getArgType(handle).isFunction) {
+          handle.call(cx, {
+            next,
+            context: cx,
+            config: cx.config,
+            service: cx.service
+          });
+        }
+      }
+    });
+    router[method].apply(router, newHandles);
     return function(target) {};
   }
 });
