@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/famanoder/eryue.svg?branch=dev)](https://travis-ci.org/famanoder/eryue)
+
 >  a nodejs framework base on Koajs and enhanced it!
 
 ### Usage
