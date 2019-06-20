@@ -5,18 +5,20 @@ import {CONFIG, SERVICE, ERYUE_CONFIG} from './context-names';
 export default function() {
   const cx = this.context;
   const [config, service] = injector.resolve(CONFIG, SERVICE);
-  const success = function() {
-    resBody(true).apply(cx, arguments);
-  }
-  const failed = function() {
-    resBody(false).apply(cx, arguments);
+  const helper = {
+    success() {
+      resBody(true).apply(cx, arguments);
+    },
+    failed() {
+      resBody(false).apply(cx, arguments);
+    }
   }
 
-  cx[ERYUE_CONFIG] = {
+  const eryueContext = {
     config,
     service,
-    success,
-    failed
+    helper
   }
 
+  Object.assign(cx, eryueContext);
 }

@@ -17,16 +17,12 @@ let User = (0, _decorator.Service)(_class = class User {
 }) || _class;
 
 let App = (_dec = (0, _decorator.Config)('config.js'), _dec2 = _decorator.Router.get('v1', {
-  'user': async ({
-    context,
-    next,
-    service,
-    success
-  }) => {
-    // console.log(cx);
-    const user = await service.user.getUserList(); // context.body = user;
+  'user': async function ($helper, $service) {
+    // console.log(context.config);
+    // console.log($context, next, $service, $helper)
+    const user = await $service.user.getUserList(); // context.body = user;
 
-    success(user); // await next();
+    $helper.success(user); // await next();
   },
   'greet': 'Hello, world.'
 }), _dec3 = (0, _decorator.Middlewares)([async (cx, next) => {

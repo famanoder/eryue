@@ -1,3 +1,6 @@
+import injector from '@eryue/injector';
+import {BODY} from '../lib/context-names';
+
 export default success => function(status, result, option = {}) {
   const arg = arguments;
   if(!arg.length) {
@@ -20,12 +23,15 @@ export default success => function(status, result, option = {}) {
     }
   }
 
-  this.status = status;
-  this.body = {
-    success,
-    result,
-    ...option
+  const $body = {
+    status,
+    body: {
+      success,
+      result,
+      ...option
+    }
   }
+  injector.add(BODY, $body); 
 
 }
   // }

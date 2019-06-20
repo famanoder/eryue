@@ -18,18 +18,20 @@ function _default() {
 
   const [config, service] = _injector.default.resolve(_contextNames.CONFIG, _contextNames.SERVICE);
 
-  const success = function () {
-    (0, _resBody.default)(true).apply(cx, arguments);
-  };
+  const helper = {
+    success() {
+      (0, _resBody.default)(true).apply(cx, arguments);
+    },
 
-  const failed = function () {
-    (0, _resBody.default)(false).apply(cx, arguments);
-  };
+    failed() {
+      (0, _resBody.default)(false).apply(cx, arguments);
+    }
 
-  cx[_contextNames.ERYUE_CONFIG] = {
+  };
+  const eryueContext = {
     config,
     service,
-    success,
-    failed
+    helper
   };
+  Object.assign(cx, eryueContext);
 }

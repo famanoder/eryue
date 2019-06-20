@@ -15,9 +15,9 @@
     "node": ">= 8.1.4"
   },
   "dependencies": {
-    "@eryue/injector": "^1.0.2",
-    "@eryue/koa-router-mapping": "^1.0.3",
-    "@eryue/utils": "^1.0.0",
+    "@eryue/injector": "^1.0.7",
+    "@eryue/koa-router-mapping": "^1.1.3",
+    "@eryue/utils": "^1.0.4",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
     "koa-compose": "^4.1.0",

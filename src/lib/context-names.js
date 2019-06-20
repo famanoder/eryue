@@ -4,4 +4,4 @@ export const MIDDLEWARES = Symbol('middleares');
 
 export const SERVICE = Symbol('service');
 
-export const ERYUE_CONFIG = Symbol('eryue-config');
+export const BODY = Symbol('body');
