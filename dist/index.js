@@ -20,12 +20,13 @@ let App = (_dec = (0, _decorator.Config)('config.js'), _dec2 = _decorator.Router
   'user': async ({
     context,
     next,
-    service
+    service,
+    success
   }) => {
     // console.log(cx);
-    const user = await service.user.getUserList();
-    context.body = user; // cx.success(user);
-    // await next();
+    const user = await service.user.getUserList(); // context.body = user;
+
+    success(user); // await next();
   },
   'greet': 'Hello, world.'
 }), _dec3 = (0, _decorator.Middlewares)([async (cx, next) => {

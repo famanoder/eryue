@@ -11,11 +11,11 @@ class User {
 
 @Config('config.js')
 @Router.get('v1', {
-  'user': async ({context, next, service}) => {
+  'user': async ({context, next, service, success}) => {
     // console.log(cx);
     const user = await service.user.getUserList();
-    context.body = user;
-    // cx.success(user);
+    // context.body = user;
+    success(user);
     // await next();
   },
   'greet': 'Hello, world.'
