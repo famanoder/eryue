@@ -17,14 +17,8 @@ yarn add @eryue/core
 * **Hello, world !**
 
 ```js
-import Eryue, {Router, Config} from '@eryue/core';
+import Eryue, {Router} from '@eryue/core';
 
-@Config({
-  port: 1234,
-  onlisten(port) {
-    console.log('an app server started at ' + port);
-  }
-})
 @Router.get({
   greet: 'Hello, world !'
 })
@@ -32,17 +26,17 @@ class App extends Eryue {}
 
 new App();
 
-// curl localhost:1234/greet
+// curl localhost:8000/greet
 // => Hello, world ! 
 ```
 
 ### Decorators
 
------
+----- 
 
 * **@Config(Object|String)**
 
-we can bind our app's config from here, if option is String, we'll try ensure it exists and require it as config, or just an Object, then we can visit it by `cx.config`;
+we can bind our app's config from here, if option is String, we'll think it's a file and try to ensure it exists then require it as config, or just an Object, some time we can visit it by `cx.config`;
 
 eg: 
 
@@ -59,18 +53,37 @@ module.exports = {
 }
 ```
 
+* all provided config items:
+
+```js
+{
+  // port: 8080,
+  // favicon: '',
+  // staticOption: {
+  //   root: 'static'
+  // },
+  // https: {
+  //   key: '',
+  //   cert: ''
+  // },
+  // onlisten(port) {
+  //   console.log('an app listening on ' + port);
+  // }
+}
+```
+
 * **@Router[all|get|put|post|patch|del|delete](prefix, Object)**
 
 we provide a very nice way to make your router Configurable & Combinable & Reusable, yeah, just a function mapping. see detail [koa-router-mapping](https://github.com/famanoder/koa-router-mapping);
 
 let's define a api, eg: `/api/user/getUserInfo`.
 
-we recommand ervery api is a function or an array of function. consider the following pseudocode example.
+we recommand every api is a function or an array of function. consider the following pseudocode example.
 
 ```js
-async function getUserInfo(cx, next) {
-  const userInfo = await cx.service.getUserInfo(userId);
-  cx.body = userInfo;
+async function getUserInfo($service, $helper) {
+  const userInfo = await $service.getUserInfo(userId);
+  $helper.success(userInfo);
 }
 
 // api path can be splited by '/'
@@ -82,7 +95,8 @@ class App extends Eryue {}
 new App();
 ```
 
-and so on, base on some functions, our api definition become to Combinable & Reusable.
+as you see, `getUserInfo` just a function and has injected two params `$service` and `$helper`, there is too many params can be injected to our **Router** function, eg: `$context`/`$next`/`$service`/`$helper` and so on, actually, this is very pure for our api definition. as you like, you can look it as controler! 
 
 * **@Middlewares**
 
+* **@Service**
