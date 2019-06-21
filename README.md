@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/famanoder/eryue.svg?branch=dev)](https://travis-ci.org/famanoder/eryue)
 
->  a nodejs framework base on Koajs and enhanced it!
+>  A framework for full stack development of Nodejs for SMEs(small and medium-sized enterprises)！
 
 ### Usage
 
