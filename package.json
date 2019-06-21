@@ -1,7 +1,7 @@
 {
   "name": "@eryue/core",
   "version": "1.0.0",
-  "description": "a nodejs framework base on Koajs and enhanced it!",
+  "description": "A framework for full stack development of Nodejs for SMEs(small and medium-sized enterprises)！",
   "main": "dist",
   "repository": "https://github.com/famanoder/Eryue.git",
   "author": "famanoder <915905174@qq.com>",
