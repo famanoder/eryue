@@ -1,6 +1,8 @@
 import Eryue from './lib/start';
 import {Config, Middlewares, Router, Service} from './lib/decorator';
 
+// function & inject
+
 @Service
 class User {
   getUserList(id) {
@@ -23,10 +25,16 @@ class User {
 })
 @Middlewares([
   async (cx, next) => {
-    cx.body = 'cx.service.user.getUserList()';
+    // cx.body=cx.aa;
+    cx.body = qws+'cx.service.user.getUserList()';
     // await next();
   }
 ])
+@Register({
+  middlewares: [],
+  context: {},
+  schedules: {}
+})
 class App extends Eryue {}
 
 new App().then(port => console.log(`an app server started at ${port}.`));

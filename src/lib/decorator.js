@@ -3,7 +3,7 @@ import {join} from 'path';
 import injector from '@eryue/injector';
 import {getArgType, assert, _} from '@eryue/utils';
 import router from './router';
-import {CONFIG, MIDDLEWARES, SERVICE} from './context-names';
+import {CONFIG, MIDDLEWARES, SERVICE, MODEL} from './context-names';
 
 export function Config(conf) {
   const [config = {}] = injector.resolve(CONFIG);
@@ -59,19 +59,33 @@ export function Service(target) {
   injector.add(SERVICE, services);
 }
 
+export function Model(target) {
+  const name = target.name.toLowerCase();
+  const model = new target;
+  let [models] = injector.resolve(MODEL);
+  if(models) {
+    models[name] = model;
+  }else{
+    models = {
+      [name]: model
+    }
+  }
+  injector.add(MODEL, models);
+}
+
 /**
  * @Router.get('api', {
  *  user: {
- *    getUserInfo: async cx => {
+ *    getUserInfo: async $helper => {
  *      const userInfo = await 'userinfo';
- *      cx.context.body = userInfo;
+ *      $helper.success(userInfo);
  *    }
  *  }
  * })
  * class App extends Eryue {}
  */
 const Router = {};
-;['all', 'del', 'delete', 'get', 'patch', 'post', 'put'].forEach(method => {
+;['all', 'del', 'delete', 'get', 'head', 'options', 'patch', 'post', 'put'].forEach(method => {
   Router[method] = function() {
     router[method].apply(router, arguments);
     return function(target) {};

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = _default;
+exports.default = createEryueContext;
 
 var _injector = _interopRequireDefault(require("@eryue/injector"));
 
@@ -13,10 +13,8 @@ var _contextNames = require("./context-names");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _default() {
-  const cx = this.context;
-
-  const [config, service] = _injector.default.resolve(_contextNames.CONFIG, _contextNames.SERVICE);
+function createEryueContext(cx) {
+  const [config, service, model] = _injector.default.resolve(_contextNames.CONFIG, _contextNames.SERVICE, _contextNames.MODEL);
 
   const helper = {
     success() {
@@ -31,7 +29,9 @@ function _default() {
   const eryueContext = {
     config,
     service,
+    model,
     helper
   };
-  Object.assign(cx, eryueContext);
+
+  _injector.default.add(_contextNames.ERYUE_CONTEXT, eryueContext);
 }

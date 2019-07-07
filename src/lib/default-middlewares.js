@@ -4,7 +4,7 @@ import compress from 'koa-compress';
 import injector from '@eryue/injector';
 import {getArgType} from '@eryue/utils';
 import {loadRoutes} from './router';
-import {CONFIG} from './context-names';
+import {CONFIG, BODY, ERYUE_CONTEXT} from './context-names';
 
 function loadConfig(fn) {
   return async (cx, next) => {
@@ -30,7 +30,26 @@ function withFavicon({favicon} = {}) {
   return require('koa-favicon')(favicon);
 }
 
+async function catchError(cx, next) {
+  try{
+    await next();
+  }catch(e) {
+    console.error(' Catch middleware error: \n', e);
+
+    const [context] = injector.resolve(ERYUE_CONTEXT);
+    context.helper.failed(500, {
+      code: 500,
+      msg: e.message || 'Internal Server Error.'
+    });
+    const [$body = {}] = injector.resolve(BODY);
+    const {status, body} = $body;
+    cx.status = status;
+    cx.body = body;
+  }
+}
+
 const middlewares = [
+  catchError,
   compress(),
   bodyparser(),
   loadConfig(withStatic),

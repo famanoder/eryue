@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.Config = Config;
 exports.Middlewares = Middlewares;
 exports.Service = Service;
+exports.Model = Model;
 exports.Router = void 0;
 
 var _fs = _interopRequireDefault(require("mz/fs"));
@@ -88,12 +89,29 @@ function Service(target) {
 
   _injector.default.add(_contextNames.SERVICE, services);
 }
+
+function Model(target) {
+  const name = target.name.toLowerCase();
+  const model = new target();
+
+  let [models] = _injector.default.resolve(_contextNames.MODEL);
+
+  if (models) {
+    models[name] = model;
+  } else {
+    models = {
+      [name]: model
+    };
+  }
+
+  _injector.default.add(_contextNames.MODEL, models);
+}
 /**
  * @Router.get('api', {
  *  user: {
- *    getUserInfo: async cx => {
+ *    getUserInfo: async $helper => {
  *      const userInfo = await 'userinfo';
- *      cx.context.body = userInfo;
+ *      $helper.success(userInfo);
  *    }
  *  }
  * })
@@ -104,7 +122,7 @@ function Service(target) {
 const Router = {};
 exports.Router = Router;
 ;
-['all', 'del', 'delete', 'get', 'patch', 'post', 'put'].forEach(method => {
+['all', 'del', 'delete', 'get', 'head', 'options', 'patch', 'post', 'put'].forEach(method => {
   Router[method] = function () {
     _router.default[method].apply(_router.default, arguments);
 

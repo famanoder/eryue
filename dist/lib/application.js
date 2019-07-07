@@ -21,7 +21,7 @@ class Application extends _koa.default {
   constructor() {
     super();
 
-    _context.default.call(this);
+    _context.default.call(this, this.context);
   }
 
   useAll() {

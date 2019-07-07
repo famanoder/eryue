@@ -1,10 +1,9 @@
 import injector from '@eryue/injector';
 import resBody from '../helper/resBody';
-import {CONFIG, SERVICE, ERYUE_CONFIG} from './context-names';
+import {CONFIG, SERVICE, MODEL, ERYUE_CONTEXT} from './context-names';
 
-export default function() {
-  const cx = this.context;
-  const [config, service] = injector.resolve(CONFIG, SERVICE);
+export default function createEryueContext(cx) {
+  const [config, service, model] = injector.resolve(CONFIG, SERVICE, MODEL);
   const helper = {
     success() {
       resBody(true).apply(cx, arguments);
@@ -17,8 +16,10 @@ export default function() {
   const eryueContext = {
     config,
     service,
+    model,
     helper
   }
 
-  Object.assign(cx, eryueContext);
+  injector.add(ERYUE_CONTEXT, eryueContext);
+
 }

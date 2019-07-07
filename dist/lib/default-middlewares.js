@@ -48,7 +48,31 @@ function withFavicon({
   return require('koa-favicon')(favicon);
 }
 
-const middlewares = [(0, _koaCompress.default)(), (0, _koaBodyparser.default)(), loadConfig(withStatic), loadConfig(withFavicon), _router.loadRoutes];
+async function catchError(cx, next) {
+  try {
+    await next();
+  } catch (e) {
+    console.error(' Catch middleware error: \n', e);
+
+    const [context] = _injector.default.resolve(_contextNames.ERYUE_CONTEXT);
+
+    context.helper.failed(500, {
+      code: 500,
+      msg: e.message || 'Internal Server Error.'
+    });
+
+    const [$body = {}] = _injector.default.resolve(_contextNames.BODY);
+
+    const {
+      status,
+      body
+    } = $body;
+    cx.status = status;
+    cx.body = body;
+  }
+}
+
+const middlewares = [catchError, (0, _koaCompress.default)(), (0, _koaBodyparser.default)(), loadConfig(withStatic), loadConfig(withFavicon), _router.loadRoutes];
 
 var _default = (0, _koaCompose.default)(middlewares);
 

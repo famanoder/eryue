@@ -1,8 +1,8 @@
-import routerMapping from '@eryue/koa-router-mapping';
-import injector from '@eryue/injector';
-import {getArgType, getArgsFromFunc} from '@eryue/utils';
 import compose from 'koa-compose';
-import { BODY } from './context-names';
+import injector from '@eryue/injector';
+import routerMapping from '@eryue/koa-router-mapping';
+import {getArgType, getArgsFromFunc} from '@eryue/utils';
+import {BODY, ERYUE_CONTEXT} from './context-names';
 
 const router = new routerMapping({rebindHandles});
 
@@ -13,12 +13,13 @@ export function rebindHandles(handles) {
 
   const newHandles = handles.map(handle => {
     return async (cx, next) => {
+      const [eryueContext] = injector.resolve(ERYUE_CONTEXT);
       const beInjected = {
-        context: cx,
-        config: cx.config,
-        helper: cx.helper,
-        next,
-        service: cx.service
+        ...{
+          next,
+          context: cx
+        }, 
+        ...eryueContext
       }
       const injectedArgs = getArgsFromFunc(handle);
       if(injectedArgs.length) {

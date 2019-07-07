@@ -1,6 +1,7 @@
 import injector from '@eryue/injector';
 import {getPort, getArgType} from '@eryue/utils';
 import Application from './application';
+import eryueContext from './context';
 import middlewares from './default-middlewares';
 import {Middlewares} from './decorator';
 import {CONFIG} from './context-names';
@@ -23,11 +24,10 @@ async function start({
 } = {}) {
   const app = new Application();
 
-  port = await detectPort(port);
-
   app.useAll();
   withHttps.call(app, https);
   
+  port = await detectPort(port);
   return new Promise((rs, rj) => {
     app.listen(port, err => {
       if(err) throw err;

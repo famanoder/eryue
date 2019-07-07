@@ -11,6 +11,8 @@ var _utils = require("@eryue/utils");
 
 var _application = _interopRequireDefault(require("./application"));
 
+var _context = _interopRequireDefault(require("./context"));
+
 var _defaultMiddlewares = _interopRequireDefault(require("./default-middlewares"));
 
 var _decorator = require("./decorator");
@@ -45,9 +47,9 @@ async function start({
   onlisten
 } = {}) {
   const app = new _application.default();
-  port = await detectPort(port);
   app.useAll();
   withHttps.call(app, https);
+  port = await detectPort(port);
   return new Promise((rs, rj) => {
     app.listen(port, err => {
       if (err) throw err;
